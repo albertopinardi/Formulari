@@ -1,0 +1,90 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Formulari</title>
+	<link rel="shortcut icon" href="{%  static 'favicon.ico' %}">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/jquery.tablesorter.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script>
+	$( function() {
+		$( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  	} );
+  	</script>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+	 <div class="container-fluid">
+    	  <div class="navbar-header">
+      	   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>                        
+      	   </button>
+      <a class="navbar-brand" href="/">Formulari</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Commercianti <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'anagrafica_list' %}">Lista Anagrafiche</a></li>
+            <li><a href="{% url 'anagrafica_new' %}">Aggiungi Anagrafica</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Documenti <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'formulari_list' %}">Lista Documenti</a></li>
+            <li><a href="{% url 'formulari_new' %}">Aggiungi Documento</a></li>
+            <li><a href="{% url 'formulari_list_all' %}"> Tutti i Documenti </a></li>
+          </ul>
+	</li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Gruppi <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'ripartizioni_list' %}">Lista Gruppi</a></li>
+            <li><a href="{% url 'ripartizioni_new' %}">Aggiungi Gruppo</a></li>
+          </ul>
+        </li>
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Riepiloghi <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'riepiloghi_list' %}">Elenco Riepiloghi </a></li>
+            <li><a href="{% url 'formulari_orfani' %}">Elenco Formulari Orfani </a></li>
+          </ul>
+        </li>        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Prezzi <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'prezzi_list' %}">Lista Prezzi</a></li>
+            <li><a href="{% url 'prezzi_new' %}">Aggiungi Prezzo</a></li>
+            <li><a href="{% url 'prezzi_ultimi' %}"> Ultimi Prezzi Applicati </a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Materiali <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'materiali_list' %}">Lista Materiali</a></li>
+            <li><a href="{% url 'materiali_new' %}">Aggiungi Materiale</a></li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if user.is_authenticated %}
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user }} </a></li>
+        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+	{% else %}
+        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
+	{% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="container-fluid">
+            {% block content %}
+            {% endblock %}
+    </div>
+</body>

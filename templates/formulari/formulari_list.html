@@ -1,0 +1,46 @@
+{% extends 'formulari/base.html' %} {% block content %}
+	<div class="table-responsive">
+	<table class="table table-condensed table-hover">
+	 <thead>
+	  <tr>
+           <th>Commerciante</th>
+           <th>Codice</th>
+           <th class="hidden-xs hidden-sm">Materiale</th>
+           <th>Data</th>
+           <th class="hidden-xs hidden-sm">Prezzo</th>
+           <th>Quantita'</th>
+	   <th class="hidden-xs hidden-sm">Importo</th>
+	   <th class="hidden-xs hidden-sm">Autore</th>
+           <th class="hidden-xs hidden-sm">Ripartizione</th>
+          </tr>
+        </thead>
+	<tbody>
+	{% for formulari in formularis %}
+	{% if formulari.stato|stringformat:"s" == "AP" %}
+	<tr class="info">
+	{% elif formulari.stato|stringformat:"s" == "CH" %}
+        <tr class="success">
+        {% elif formulari.stato|stringformat:"s" == "RP" %}
+        <tr class="warning">
+        {% elif formulari.stato|stringformat:"s" == "ER" %}
+        <tr class="danger">
+        {% elif formulari.stato|stringformat:"s" == "IA" %}
+        <tr class="text-muted bg-faded">
+	{% else %}
+	<tr>
+	{% endif %}
+	 <td>{{ formulari.comm }}</td>
+	 <td><a href="{% url 'formulari_detail' pk=formulari.pk %}">{{ formulari.cod }}</a></td>
+         <td class="hidden-xs hidden-sm">{{ formulari.mat }}</td>
+	 <td>{{ formulari.data|date:'d/N/y' }}</td>
+         <td class="hidden-xs hidden-sm">{{ formulari.prezzo }}</td>
+         <td>{{ formulari.quantita }}</td>
+         <td class="hidden-xs hidden-sm">{{ formulari.importo }}</td>
+         <td class="hidden-xs hidden-sm">{{ formulari.autore }}</td>
+         <td class="hidden-xs hidden-sm">{{ formulari.ripa }}</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	</div>
+{% endblock content %}

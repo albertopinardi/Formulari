@@ -1,0 +1,23 @@
+{% extends 'formulari/base.html' %}
+
+{% block content %}
+    <div class="formulario">
+	<div class="btn-group btn-group-justified">
+	<div class="btn-group">
+        <a class="btn btn-success" href="{% url 'ripartizioni_new'%}"><span class="glyphicon glyphicon-asterisk"></span> Nuovo </a>
+	</div>
+        <div class="btn-group">
+        <a class="btn btn-default" href="{% url 'ripartizioni_edit' pk=record.pk %}"><span class="glyphicon glyphicon-pencil"></span> Modifica </a>
+        </div>
+        <div class="btn-group">
+	<a class="btn btn-danger" href="#"><span class="glyphicon glyphicon-trash"></span> Cancella </a>
+        </div>
+	</div>
+        <h1>{{ record.nome }}</h1>
+        <p><span class="glyphicon glyphicon-send"></span> :{{ record.mail }}</p>
+        <p><span class="glyphicon glyphicon-user"></span> :{{ record.riferimento }}</p>
+	<p><span class="glyphicon glyphicon-earphone"></span> :{{record.tel}}</p>
+	<p>{{record.note}}</p>
+    </div>
+{% endblock %}
+

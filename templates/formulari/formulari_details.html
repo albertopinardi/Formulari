@@ -1,0 +1,48 @@
+{% extends 'formulari/base.html' %}
+
+{% block content %}
+    <div class="formulario">
+	<div class="btn-group btn-group-justified">
+	<div class="btn-group">
+        <a class="btn btn-success" href="{% url 'formulari_new'%}"><span class="glyphicon glyphicon-asterisk"></span> Nuovo </a>
+	</div>
+	<div class="btn-group">
+        <a class="btn btn-default" href="{% url 'formulari_edit' pk=form.pk %}"><span class="glyphicon glyphicon-pencil"></span> Modifica </a>
+	</div>
+	<div class="btn-group">
+	<a class="btn btn-danger" href="{% url 'formulari_delete' pk=form.pk %}"><span class="glyphicon glyphicon-trash"></span> Cancella </a>
+	</div>
+	 <div class="btn-group">
+	  <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">Stato <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+           <li><a href="{% url 'formulari_change' pk=form.pk cod='AP' %}">Apri</a></li>
+           <li><a href="{% url 'formulari_change' pk=form.pk cod='CH' %}">Chiudi</a></li>
+           <li><a href="{% url 'formulari_change' pk=form.pk cod='RP' %}">Riepiloga</a></li>
+           <li><a href="{% url 'formulari_change' pk=form.pk cod='IA' %}">Inattivo</a></li>
+           <li><a href="{% url 'formulari_change' pk=form.pk cod='ND' %}">No Docs</a></li>
+           <li><a href="{% url 'formulari_change' pk=form.pk cod='ER' %}">Errore</a></li>
+          </ul>
+	 </div>
+	</div>
+   <div class="col-sm-6">
+        <h1>{{ form.cod }}</h1>
+        <p>Commerciante <span class="glyphicon glyphicon-chevron-right"></span> {{ form.comm }}</p>
+        <p>Materiale <span class="glyphicon glyphicon-chevron-right"></span>{{ form.mat }}</p>
+        <p>Prezzo <span class="glyphicon glyphicon-chevron-right"></span>{{ form.prezzo }}</p>
+        <p>Quantita <span class="glyphicon glyphicon-chevron-right"></span>{{ form.quantita }}</p>
+        <p>Importo <span class="glyphicon glyphicon-chevron-right"></span>{{ form.importo }}</p>
+        <p>Data <span class="glyphicon glyphicon-chevron-right"></span>{{ form.data }}</p>
+        <p>Ripartizione <span class="glyphicon glyphicon-chevron-right"></span>{{ form.ripa }}</p>
+        <p>Inserito da  <span class="glyphicon glyphicon-chevron-right"></span>{{ form.autore }}</p>
+        <p>Attualmente <span class="glyphicon glyphicon-chevron-right"></span>{{ form.stato }}</p>
+	<p>Numero Univoco <span class="glyphicon glyphicon-chevron-right"></span>{{ form.pk }}</p>
+    </div>
+ </div>
+ <div class="col-sm-6">
+  <h2> Funzioni </h2>
+  <a class="btn btn-primary" href="{% url 'formulari_like' rif=form.pk  %}"><span class="glyphicon glyphicon-list"></span> Aggiungi un altro</a>
+ </div>
+ </div>
+
+{% endblock %}
+

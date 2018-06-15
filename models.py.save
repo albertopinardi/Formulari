@@ -1,0 +1,60 @@
+from __future__ import unicode_literals
+
+from django.db import models
+from django.utils import timezone
+
+# Create your models here.
+class Anagrafica(models.Model):
+        nome = models.CharField(max_length=200)
+        mail = models.CharField(max_length=200)
+        riferimento = models.CharField(max_length=200)
+        tel = models.CharField(max_length=200)
+        note =  models.TextField()
+
+        def __str__(self):
+                return self.nome
+
+class Prezzi(models.Model):
+	mat = models.ForeignKey('formulari.Materiali')
+        valore = models.CharField(max_length=200)
+	um = models.CharField(max_length=2)
+        data =  models.DateTimeField(blank=True, null=True)
+        note =  models.TextField()
+
+class Formulari(models.Model):
+	comm = models.ForeignKey('formulari.Anagrafica')
+	cod = models.CharField(max_length=200)
+	mat =  models.ForeignKey('formulari.Meteriale')
+	data = models.DateTimeField(blank=True, null=True)
+	prod = models.ForeignKey('formulari.Produttori')
+	um = models.CharField(max_length=2)
+	prezzo = models.IntegerField()
+	ripa = models.ForeignKey('formulari.Ripartizioni')
+
+class Materiali(models.Model):
+	mat = models.CharField(max_length=200)
+	cod = models.CharField(max_length=200)
+
+        def __str__(self):
+                return self.mat
+
+class Produttori(models.Model):
+        nome = models.CharField(max_length=200)
+        mail = models.CharField(max_length=200)
+        riferimento = models.CharField(max_length=200)
+        tel = models.CharField(max_length=200)
+        note =  models.TextField()
+
+        def __str__(self):
+                return self.nome
+
+class Ripartizioni(models.Model):
+        nome = models.CharField(max_length=200)
+        mail = models.CharField(max_length=200)
+        riferimento = models.CharField(max_length=200)
+        tel = models.CharField(max_length=200)
+        note =  models.TextField()
+
+        def __str__(self):
+                return self.nome
+

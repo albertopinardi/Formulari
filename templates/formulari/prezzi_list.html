@@ -1,0 +1,29 @@
+{% extends 'formulari/base.html' %}
+{% block content %}
+	<div class="table-responsive">
+	<table class="table table-sm table-hover">
+	 <thead>	
+	  <tr>
+           <th>Commerciante</th>
+           <th>Materiale</th>
+           <th>Data</th>
+           <th>Valore</th>
+           <th>Note</th>
+           <th class="hidden-xs hidden-sm" >Autore</th>
+          </tr>
+        </thead>
+	<tbody>
+	{% for array in arrays %}
+	<tr>
+	 <td>{{ array.comm }}</td>
+	 <td>{{ array.mat }}</td>
+         <td>{{ array.data|date:"d/N/y" }}</td>
+	 <td>{{ array }}</td>
+         <td>{{ array.note }}</td>
+         <td class="hidden-xs hidden-sm" >{{ array.autore }}</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	</div>
+{% endblock content %}

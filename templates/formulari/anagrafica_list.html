@@ -1,0 +1,32 @@
+{% extends 'formulari/base.html' %}
+{% block content %}
+        <div class="table-responsive">
+	<table class="table table-condensed table-hover">
+	 <thead>	
+	  <tr>
+           <th>Denominazione</th>
+           <th>Mail</th>
+           <th class="hidden-xs hidden-sm">Riferimento</th>
+           <th>Telefono</th>
+           <th>Riepiloghi</th>
+          </tr>
+        </thead>
+	<tbody>
+	{% for array in arrays %}
+	<tr>
+	 <td><a href="{% url 'anagrafica_detail' pk=array.pk %}">{{ array.nome }}</a></td>
+	 <td>{{ array.mail }}</td>
+	 <td class="hidden-xs hidden-sm">{{ array.riferimento }}</td>
+         <td>{{ array.tel }}</td>
+         <td><a href="{% url 'anagrafica_riepilogo' pk=array.pk %}"><button type="button" class="btn btn-info btn-sm"><span class="glyphicon glyphicon-list-alt"></span> Riepiloghi
+	{% if array.doc_ap %} 
+		<span class="badge badge-secondary">{{ array.doc_ap }}</span>
+	{% else %}
+	{% endif %}	
+	</button></a></td>	
+	</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	</div>
+{% endblock content %}

@@ -1,0 +1,81 @@
+<html>
+<head>
+<title>Riepilogo</title>
+<style>
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+div {
+ padding: 15px;
+ width: 50%;
+ text-align: left;
+}
+table {
+ border: 1px groove black;
+ margin: 1px;
+ padding: 1px;
+}
+@page {
+    size: landscape;
+    margin: 1cm;
+}
+</style>
+</head>
+<body>
+<div>
+    <h2>Riepilogo del {{data|date}} Commerciante: {{comm.nome}}</h2>
+    <table>
+        <thead>	
+        <tr>
+            <th>Commerciante</th>
+            <th>Codice</th>
+            <th >Materiale</th>
+            <th>Data</th>
+            <th >Prezzo</th>
+            <th>Quantita'</th>
+            <th >Importo</th>
+            <th >Produttore</th>
+            <th >Ripartizione</th>
+        </tr>
+        </thead>
+    <tbody>
+    {% for fqs in fqss %}
+    <tr>
+        <td>{{ fqs.comm }}</td>
+        <td>{{ fqs.cod }}</td>
+        <td >{{ fqs.mat }}</td>
+        <td>{{ fqs.data|date:'d/N/y' }}</td>
+        <td >{{ fqs.prezzo }}</td>
+        <td>{{ fqs.quantita }}</td>
+        <td >{{ fqs.importo }}</td>
+        <td>{{ fqs.prod }}</td>
+        <td>{{ fqs.ripa }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+<br/>
+<br/>
+    <h2>Ripartizioni:</h2>
+<div>
+    <table>
+    <thead>
+        <tr>
+            <th>Gruppo</th>
+            <th>Totale</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for gsa in gsas %}
+    <tr>
+        <td>{{ gsa.nome }}</td>
+        <td>{{ gsa.totale }} €</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+</body>
+</html>

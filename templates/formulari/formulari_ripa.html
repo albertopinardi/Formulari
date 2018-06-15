@@ -1,0 +1,104 @@
+{% extends 'formulari/base.html' %}
+{% block content %}
+
+{% block extra_js%}
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+{% endblock %}
+
+	<div class="table-responsive">
+	<table class="table table-condensed table-hover">
+	 <thead>	
+	  <tr>
+           <th>Commerciante</th>
+           <th>Codice</th>
+           <th class="hidden-xs hidden-sm">Materiale</th>
+           <th>Data</th>
+           <th class="hidden-xs hidden-sm">Prezzo</th>
+           <th>Quantita'</th>
+           <th class="hidden-xs hidden-sm">Importo</th>
+	   <th class="hidden-xs hidden-sm">Produttore</th>
+           <th class="hidden-xs hidden-sm">Ripartizione</th>
+          </tr>
+        </thead>
+	<tbody>
+	{% for fqs in fqss %}
+	 {% if fqs.stato|stringformat:"s" == "AP" %}
+	  <tr class="info">
+	 {% elif fqs.stato|stringformat:"s" == "CH" %}
+          <tr class="success">
+         {% elif fqs.stato|stringformat:"s" == "RP" %}
+          <tr class="warning">
+         {% elif fqs.stato|stringformat:"s" == "ER" %}
+          <tr class="danger">
+	 {% else %}
+	  <tr>	
+	 {% endif %}
+	  <td>{{ fqs.comm }}</td>
+	  <td><a href="{% url 'formulari_detail' pk=fqs.pk %}">{{ fqs.cod }}</a></td>
+          <td class="hidden-xs hidden-sm">{{ fqs.mat }}</td>
+	  <td>{{ fqs.data|date:'d/N/y' }}</td>
+          <td class="hidden-xs hidden-sm">{{ fqs.prezzo }}</td>
+          <td>{{ fqs.quantita }}</td>
+          <td class="hidden-xs hidden-sm">{{ fqs.imp }}</td>
+          <td class="hidden-xs hidden-sm">{{ fqs.prod }}</td>
+          <td class="hidden-xs hidden-sm">{{ fqs.ripa }}</td>
+	 </tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	</div>
+
+
+
+        <div class="table-responsive">
+        <table class="table table-sm table-hover">
+         <thead>
+          <tr>
+           <th>Gruppo</th>
+           <th>Totale</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for gsa in gsas %}
+         <tr>
+          <td><a href="{% url 'ripartizioni_detail' pk=gsa.pk %}">{{ gsa.nome }}</a></td>
+          <td>{{ gsa.totale }} €</td>
+         </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+        </div>
+	<div>
+	<a href="{% url 'anagrafica_rpdf' pk=comm %}" class="btn btn-default" target="_blank">
+          <span class="glyphicon glyphicon-print"></span> PDF
+        </a>
+	<a href="{% url 'riepiloghi_generate' pk=comm %}" class="btn btn-primary" target="_blank">
+          <span class="glyphicon glyphicon-ok-circle"></span> Genera Riepilogo
+        </a>
+        <a href="{% url 'anagrafica_preview' pk=comm %}" class="btn btn-primary" target="_blank">
+          <span class="glyphicon glyphicon-info-sign"></span> Genera Anteprima
+        </a>
+	</div>
+
+
+
+
+
+
+
+{% comment %}
+<p>Click <a data-toggle="modal" data-target="#modal" href="{% url 'formulari_new' %}">here</a> to show the modal</p>
+<div class="modal fade" id="modal"></div>
+<script>
+$('#modal').on('show.bs.modal', function (event) {
+    var modal = $(this)
+    $.ajax({
+        url: "{% url 'formulari_new' %}",
+        context: document.body
+    }).done(function(response) {
+        modal.html(response);
+    });
+})
+</script>
+{% endcomment %}
+{% endblock content %}

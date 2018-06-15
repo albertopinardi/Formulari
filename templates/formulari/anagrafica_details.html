@@ -1,0 +1,33 @@
+{% extends 'formulari/base.html' %}
+
+{% block content %}
+<div class="formulario">
+  <div class="btn-group btn-group-justified">
+   <div class="btn-group">
+    <a class="btn btn-success" href="{% url 'anagrafica_new'%}"><span class="glyphicon glyphicon-asterisk"></span> Nuovo </a>
+   </div>
+   <div class="btn-group">
+    <a class="btn btn-default" href="{% url 'anagrafica_edit' pk=record.pk %}"><span class="glyphicon glyphicon-pencil"></span> Modifica </a>
+   </div>
+   <div class="btn-group">
+    <a class="btn btn-danger" href="{% url 'anagrafica_delete' pk=record.pk %}"><span class="glyphicon glyphicon-trash"></span> Cancella </a>
+   </div>
+  </div>	
+ </div>
+ <div>
+ <div class="col-sm-6">
+  <h1>{{ record.nome }}</h1>
+        <p><span class="glyphicon glyphicon-send"></span> :{{ record.mail }}</p>
+        <p><span class="glyphicon glyphicon-user"></span> :{{ record.riferimento }}</p>
+	<p><span class="glyphicon glyphicon-earphone"></span> :{{record.tel}}</p>
+	<p><span class="glyphicon glyphicon-map-marker"></span> :{{ record.addr }}</p>
+	<p><span class="glyphicon glyphicon-comment"></span> :{{record.note}}</p>
+ </div>
+ <div class="col-sm-6">
+  <h2> Funzioni </h2>
+  <a class="btn btn-primary btn-block" href="{% url 'riepiloghi_f_anagrafica' pk=record.pk %}"><span class="glyphicon glyphicon-list"></span> Riepiloghi Associati</a>
+  <a class="btn btn-info btn-block" href="{% url 'anagrafica_docs' pk=record.pk %}"><span class="glyphicon glyphicon-list"></span> Tutti i Formulari </a>
+ </div>
+ </div>
+{% endblock %}
+

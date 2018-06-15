@@ -1,0 +1,45 @@
+{% extends 'formulari/base.html' %}
+{% block content %}
+	<div class="table-responsive">
+	<table id="myTable" class="table table-condensed table-hover">
+	 <thead>	
+	  <tr>
+           <th>Commerciante</th>
+           <th>Codice</th>
+           <th class="hidden-xs hidden-sm">Materiale</th>
+           <th>Data</th>
+           <th class="hidden-xs hidden-sm">Prezzo</th>
+           <th>Quantita'</th>
+	   <th class="hidden-xs hidden-sm">Importo</th>
+	   <th class="hidden-xs hidden-sm">Autore</th>
+           <th class="hidden-xs hidden-sm">Ripartizione</th>
+          </tr>
+        </thead>
+	<tbody>
+	</tbody>
+	</table>
+	</div>
+    {% comment %}1 - This js which allows to submit forms through ajax and must be loaded in the page
+    {% block extra_js%}
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+    {% endblock %}
+{% endcomment %}
+    {% comment %}2 - The button which shows the modal, notice the href attribute{% endcomment %}
+    <p>Click <a data-toggle="modal" data-target="#modal" href="{% url 'mat_mod' %}">here</a> to show the modal</p>
+
+    {% comment %}3 - The modal container{% endcomment %}
+    <div class="modal" id="modal">{% include 'formulari/materiali_create_form.html' %}</div>
+
+    {% comment %}4 - This js code will load the response from the href url of the showing button inside the modal{% endcomment %}
+    <script type="text/javascript">
+    $('#modal').on('show.bs.modal', function(event) {
+        var modal = $(this)
+        $.ajax({
+            url: "{% url 'mat_mod' %}",
+            context: document.body
+        }).done(function(response) {
+            modal.html(response);
+        });
+    })
+    </script>
+{% endblock content %}

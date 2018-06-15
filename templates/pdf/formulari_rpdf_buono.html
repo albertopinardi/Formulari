@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Riepilogo</title>
+<style>
+.gruppi {
+    max-width: 400px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    margin: 5px;
+}	
+th, td {
+    border-bottom: 1px solid #ddd;
+    padding: 2px;
+    text-align: left;
+}
+thead {
+    background-color: green;
+}
+@page {
+    size: landscape;
+    margin: 1cm;
+}
+</style>
+</head>
+<body>
+	<table style="border: 1px solid black; margin: 5px;">
+	 <thead style="background-color: green;">	
+	  <tr>
+           <th>Commerciante</th>
+           <th>Codice</th>
+           <th >Materiale</th>
+           <th>Data</th>
+           <th >Prezzo</th>
+           <th>Quantita'</th>
+	   <th ">Importo</th>
+	   <th ">Produttore</th>
+           <th ">Ripartizione</th>
+          </tr>
+        </thead>
+	<tbody>
+	{% for fqs in fqss %}
+	<tr>
+	  <td>{{ fqs.comm }}</td>
+	  <td>{{ fqs.cod }}</td>
+          <td >{{ fqs.mat }}</td>
+	  <td>{{ fqs.data|date:'d/N/y' }}</td>
+          <td >{{ fqs.prezzo }}</td>
+          <td>{{ fqs.quantita }}</td>
+          <td >{{ fqs.importo }}</td>
+          <td>{{ fqs.prod }}</td>
+          <td>{{ fqs.ripa }}</td>
+	 </tr>
+	{% endfor %}
+	</tbody>
+	</table>
+<p></p>
+        <table style="width=50%;">
+         <thead>
+          <tr>
+           <th>Gruppo</th>
+           <th>Totale</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for gsa in gsas %}
+         <tr>
+          <td>{{ gsa.nome }}</td>
+          <td>{{ gsa.totale }} €</td>
+         </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+
+</body>
+</html>

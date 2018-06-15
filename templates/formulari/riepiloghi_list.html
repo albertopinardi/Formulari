@@ -1,0 +1,68 @@
+{% extends 'formulari/base.html' %}
+{% block content %}
+	<div class="table-responsive">
+	<table class="table table-sm table-hover table-condensed">
+	 <thead>	
+	  <tr>
+           <th>Descrizione</th>
+           <th>Data</th>
+           <th>Importo</th>
+	   <th>Stato</th>
+	   <th class="hidden-xs hidden-sm">Documenti</th>
+           <th class="hidden-xs hidden-sm">Autore</th>
+          </tr>
+        </thead>
+	<tbody>
+	{% for array in arrays %}
+	<tr>
+	 <td><a href="{% url 'riepiloghi_details' pk=array.pk %}">{{ array }}</a></td>
+	 <td>{{ array.data|date:'d/N/y' }}</td>
+	 <td>{{ array.totale }} €</td>
+         <td class="dropdown">
+        {% if array.stato|stringformat:"s" == 'PR' %}
+         <button class="btn btn-warning dropdown-toggle" type="button" data-toggle="dropdown">Preparato
+                 <span class="caret"></span></button>
+                 <ul class="dropdown-menu">
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='IN'%}">Inviato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='PA'%}">Pagato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='ER'%}">Errore</a></li>
+                </ul>
+        </td>
+        {% elif array.stato|stringformat:"s" == 'PA' %}
+         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Pagato
+                 <span class="caret"></span></button>
+                 <ul class="dropdown-menu">
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='IN'%}">Inviato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='PR'%}">Preparato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='ER'%}">Errore</a></li>
+                </ul>
+        </td>
+        {% elif array.stato|stringformat:"s" == 'ER' %}
+         <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown">Errore
+                 <span class="caret"></span></button>
+                 <ul class="dropdown-menu">
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='IN'%}">Inviato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='PA'%}">Pagato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='PR'%}">Preparato</a></li>
+                </ul>
+        </td>
+        {% elif array.stato|stringformat:"s" == 'IN' %}
+         <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown">Inviato
+                 <span class="caret"></span></button>
+                 <ul class="dropdown-menu">
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='PR'%}">Preparato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='PA'%}">Pagato</a></li>
+                 <li><a href="{% url 'riepiloghi_change' pk=array.pk cod='ER'%}">Errore</a></li>
+                </ul>
+        </td>
+        {% else %}
+         <td>{{ array.stato }}</td>
+        {% endif %}
+         <td class="hidden-xs hidden-sm"><a href="{% url 'riepiloghi_upld' pk=array.pk %}" class="btn btn-info" role="button">Carica Doc</a></td>
+         <td class="hidden-xs hidden-sm">{{ array.autore }}</td>
+	</tr>
+	{% endfor %}
+	</tbody>
+	</table>
+	</div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+{% extends 'formulari/base.html' %}
+
+{% block content %}
+    <h1>Nuovo Formulario</h1>
+    <form method="POST" >{% csrf_token %}
+	<div class="form-group">
+        {{ form.as_p }}
+	</div>
+        <button type="submit" class="save btn btn-default float-left">Save</button>
+    </form>
+{% endblock %}
+

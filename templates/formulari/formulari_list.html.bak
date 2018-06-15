@@ -1,0 +1,12 @@
+{% extends 'formulari/base.html' %}
+{% block content %}
+	{% for formulari in formularis %}
+	<div class="post">
+       		<div class="date">
+               		{{ formulari.data }}
+        	</div>
+        	<h1><a href="{% url 'formulari_detail' pk=formulari.pk %}">{{ formulari.cod }}</a></h1>
+                <p>{{ formulari.comm|linebreaksbr }}</p>
+	<div>
+	{% endfor %}
+{% endblock content %}
