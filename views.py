@@ -271,6 +271,18 @@ def prezzi_list(request):
 	array = Prezzi.objects.order_by('-data')
 	return render(request, 'formulari/prezzi_list.html', {'arrays': array})
 
+
+@login_required(login_url='/login/')
+def prezzi_chart(request):
+    prezzi_data = []
+    prezzi_chart = []
+    prezzi_data = Prezzi.objects.order_by('-data').values('data')
+    prezzi_chart = Prezzi.objects.order_by('-data').values('valore')
+    context = {'prezzi_data' : prezzi_data}
+    context['prezzi_chart'] = prezzi_chart
+    return render(request, 'formulari/prezzi_chart.html', context )
+
+
 @login_required(login_url='/login/')
 def prezzi_new(request):
     if request.method == "POST":

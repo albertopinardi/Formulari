@@ -31,6 +31,7 @@ urlpatterns = [
         url(r'^gruppi/(?P<pk>[0-9]+)/doc/$', views.ripartizioni_riepilogo, name='ripartizioni_riepilogo'),
         url(r'^gruppi/(?P<pk>[0-9]+)/delete/$', views.ripartizioni_delete, name='ripartizioni_delete'),
         url(r'^prezzi/$', views.prezzi_list, name='prezzi_list'),
+        url(r'^prezzi/chart/$', views.prezzi_chart, name='prezzi_chart'),
         url(r'^prezzi/new/$', views.prezzi_new, name='prezzi_new'),
         url(r'^prezzi/ultimi/$', views.prezzi_ultimi, name='prezzi_ultimi'),
         url(r'^materiali/$', views.materiali_list, name='materiali_list'),
