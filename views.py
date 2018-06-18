@@ -276,8 +276,8 @@ def prezzi_list(request):
 def prezzi_chart(request):
     prezzi_data = []
     prezzi_chart = []
-    prezzi_data = Prezzi.objects.order_by('-data').values('data')
-    prezzi_chart = Prezzi.objects.order_by('-data').values('valore')
+    prezzi_data = Prezzi.objects.order_by('-data').values('data', flat=True)
+    prezzi_chart = Prezzi.objects.order_by('-data').values('valore', flat=True)
     context = {'prezzi_data' : prezzi_data}
     context['prezzi_chart'] = prezzi_chart
     return render(request, 'formulari/prezzi_chart.html', context )
