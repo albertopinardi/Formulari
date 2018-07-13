@@ -12,32 +12,26 @@ from django.contrib.auth.decorators import login_required
 from .forms import FormulariForm, AnagraficaForm, PrezziForm, RipartizioniForm, MaterialiForm, RiepiloghiForm
 from random import randint
 from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
 
 #prove
+from chartjs.views.lines import BaseLineChartView
+from django.http import JsonResponse
 from django.views.generic import View
 from formulari.utils import render_to_pdf
 
+#Prove
 
-class LineChartJSONView(BaseLineChartView):
-    def get_labels(self):
-        """Return 7 labels for the x-axis."""
-        return ["January", "February", "March", "April", "May", "June", "July"]
+def get_data(request,*args,**kwargs):
+    data = {
+        "labels":["panini", "smarmellamenti", "pignoni"],
+        "default":[20, 17, 19],
+    }
+    return JsonResponse(data)
 
-    def get_providers(self):
-        """Return names of datasets."""
-        return ["Central", "Eastside", "Westside"]
+class HomeView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'formulari/charts.html')
 
-    def get_data(self):
-        """Return 3 datasets to plot."""
-
-        return [[75, 44, 92, 11, 44, 95, 35],
-                [41, 92, 18, 3, 73, 87, 92],
-                [87, 21, 94, 3, 90, 13, 65]]
-
-
-line_chart = TemplateView.as_view(template_name='prezzi_chart.html')
-line_chart_json = LineChartJSONView.as_view()
 
 # Create your views here.
 
