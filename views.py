@@ -23,14 +23,14 @@ from formulari.utils import render_to_pdf
 
 def get_data(request,*args,**kwargs):
     data = {
-        "labels":["panini", "smarmellamenti", "pignoni"],
-        "default":[20, 17, 19],
+        "labels":["pignoni", "budelli","pignoni", "budelli"],
+        "default":[20, 17, 19, 20],
     }
     return JsonResponse(data)
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'formulari/charts.html')
+        return render(request, 'formulari/grafici.html')
 
 
 # Create your views here.
@@ -435,7 +435,7 @@ def riepiloghi_upld(request,pk):
 	context['title'] = title
     return render(request, 'formulari/materiali_edit.html', context )
 
-
+    
 def comp_r_to_f(cod):
 	if (cod == 'RP')or (cod == 'ER'):
 	 res = cod
