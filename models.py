@@ -34,9 +34,9 @@ class Prezzi(models.Model):
                 if self.um_id == 1:
                         res = float(self.valore)
                 elif self.um_id == 3:
-                        res = (float(self.valore)/10)
+                        res = (float(self.valore)*10)
                 elif self.um_id == 2:
-                        res = (float(self.valore)/1000)
+                        res = (float(self.valore)*1000)
                 else:
                         res = (float(self.valore)*0)
                 return res

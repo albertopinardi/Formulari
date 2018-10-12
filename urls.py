@@ -48,5 +48,6 @@ urlpatterns = [
 #prove
         url(r'^api/data/$', views.get_data, name='get_data'),
         url(r'^charts/$', views.HomeView.as_view() , name='home'),
+        url(r'^sendmail/$', views.sendsome, name='sendmail')
 
 ]

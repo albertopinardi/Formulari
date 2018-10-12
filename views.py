@@ -13,15 +13,35 @@ from .forms import FormulariForm, AnagraficaForm, PrezziForm, RipartizioniForm, 
 from random import randint
 from django.views.generic import TemplateView
 
-#prove
+#prove grafici
 from chartjs.views.lines import BaseLineChartView
 from django.http import JsonResponse
 from django.views.generic import View
 from formulari.utils import render_to_pdf
 
+#Prove email
+from django.core.mail import send_mail
+
+
 #Prove
+def sendsome(request):
+    send_mail(
+    'Subject here',
+    'Here is the message.',
+    'formulari@omg.it',
+    ['alberto@fastmail.it'],
+    fail_silently=False,
+    )
+    return redirect('riepiloghi_list')
+
 
 def get_data(request,*args,**kwargs):
+#    asd = Prezzi.objects.values_list('data')
+#    asd1 = Prezzi.objects.values_list('alla_ton')
+#    data = {
+#        "labels":asd,
+#        "default":asd1,
+#    }
     data = {
         "labels":["pignoni", "budelli","pignoni", "budelli"],
         "default":[20, 17, 19, 20],
