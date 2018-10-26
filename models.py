@@ -29,6 +29,17 @@ class Prezzi(models.Model):
 
 	def __unicode__(self):
 		return "%s \u20ac/%s" %(self.valore, self.um)
+        
+        def alla_ton(self):
+                if self.um_id == 1:
+                        res = float(self.valore)
+                elif self.um_id == 3:
+                        res = (float(self.valore)*10)
+                elif self.um_id == 2:
+                        res = (float(self.valore)*1000)
+                else:
+                        res = (float(self.valore)*0)
+                return res
 
 class Formulari(models.Model):
         APERTO = 'AP'

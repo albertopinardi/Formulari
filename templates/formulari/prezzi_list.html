@@ -7,7 +7,8 @@
            <th>Commerciante</th>
            <th>Materiale</th>
            <th>Data</th>
-           <th>Valore</th>
+		   <th>Valore</th>
+		   <th>Valore Ton</th>
            <th>Note</th>
            <th class="hidden-xs hidden-sm" >Autore</th>
           </tr>
@@ -15,12 +16,13 @@
 	<tbody>
 	{% for array in arrays %}
 	<tr>
-	 <td>{{ array.comm }}</td>
-	 <td>{{ array.mat }}</td>
-         <td>{{ array.data|date:"d/N/y" }}</td>
-	 <td>{{ array }}</td>
-         <td>{{ array.note }}</td>
-         <td class="hidden-xs hidden-sm" >{{ array.autore }}</td>
+		<td>{{ array.comm }}</td>
+		<td>{{ array.mat }}</td>
+    	<td>{{ array.data|date:"d/N/y" }}</td>
+		<td>{{ array }}</td>
+		<td>{{ array.alla_ton }}</td>
+    	<td>{{ array.note }}</td>
+    	<td class="hidden-xs hidden-sm" >{{ array.autore }}</td>
 	</tr>
 	{% endfor %}
 	</tbody>

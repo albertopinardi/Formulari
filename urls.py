@@ -45,7 +45,10 @@ urlpatterns = [
         url(r'^riepiloghi/(?P<pk>[0-9]+)/delete/$', views.riepiloghi_delete, name='riepiloghi_delete'),
         url(r'^riepiloghi/(?P<pk>[0-9]+)/change/(?P<cod>[-\w]+)/$', views.riepiloghi_change, name='riepiloghi_change'),
         url(r'^riepiloghi/(?P<pk>[0-9]+)/upld/$', views.riepiloghi_upld, name='riepiloghi_upld'),
-
-
+#prove
+        url(r'^api/gruppi/(?P<pk>[0-9]+)/bilancio/$', views.ripartizioni_bilancio, name='gruppi_bilancio'),
+        url(r'^api/data/$', views.get_data, name='get_data'),
+        url(r'^charts/$', views.HomeView.as_view() , name='home'),
+        url(r'^sendmail/$', views.sendsome, name='sendmail')
 
 ]

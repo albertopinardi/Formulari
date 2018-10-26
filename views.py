@@ -12,32 +12,53 @@ from django.contrib.auth.decorators import login_required
 from .forms import FormulariForm, AnagraficaForm, PrezziForm, RipartizioniForm, MaterialiForm, RiepiloghiForm
 from random import randint
 from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
 
-#prove
+#prove grafici
+from chartjs.views.lines import BaseLineChartView
+from django.http import JsonResponse
 from django.views.generic import View
 from formulari.utils import render_to_pdf
 
-
-class LineChartJSONView(BaseLineChartView):
-    def get_labels(self):
-        """Return 7 labels for the x-axis."""
-        return ["January", "February", "March", "April", "May", "June", "July"]
-
-    def get_providers(self):
-        """Return names of datasets."""
-        return ["Central", "Eastside", "Westside"]
-
-    def get_data(self):
-        """Return 3 datasets to plot."""
-
-        return [[75, 44, 92, 11, 44, 95, 35],
-                [41, 92, 18, 3, 73, 87, 92],
-                [87, 21, 94, 3, 90, 13, 65]]
+#Prove email
+from django.core.mail import send_mail, EmailMessage
 
 
-line_chart = TemplateView.as_view(template_name='prezzi_chart.html')
-line_chart_json = LineChartJSONView.as_view()
+#Prove
+def sendsome(request):
+    send_mail(
+    'Subject here',
+    'Here is the message.',
+    'formulari@omg.it',
+    ['alberto@fastmail.it'],
+    fail_silently=False,
+    )
+    return redirect('riepiloghi_list')
+
+def send_riepilogo(request,pk,dest):
+        eml = EmailMessage(
+                'Oggetto',
+                'In allegato il riepilogo',
+                'alberto@fastmail.it',
+                dest)
+        eml.attach_file(Riepiloghi.object.get(pk=pk).value(doc))
+
+def get_data(request,*args,**kwargs):
+#    asd = Prezzi.objects.values_list('data')
+#    asd1 = Prezzi.objects.values_list('alla_ton')
+#    data = {
+#        "labels":asd,
+#        "default":asd1,
+#    }
+    data = {
+        "labels":["pignoni", "budelli","pignoni", "budelli"],
+        "default":[20, 17, 19, 20],
+    }
+    return JsonResponse(data)
+
+class HomeView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'formulari/grafici.html')
+
 
 # Create your views here.
 
@@ -288,6 +309,12 @@ def ripartizioni_riepilogo(request, pk):
         formulari = Formulari.objects.filter(ripa=pk)
         return render(request, 'formulari/formulari_list.html', {'formularis':formulari})
 
+def ripartizioni_bilancio(request, pk):
+        data=dict()        
+        for i in Materiali.objects.all():
+                incassi = Formulari.objects.filter(ripa__pk=pk).filter(mat__pk=i.pk).aggregate(Sum('imp'))
+                data[str(i)] = incassi['imp__sum']
+        return JsonResponse(data)
 # Prezzi
 
 @login_required(login_url='/login/')
@@ -441,7 +468,7 @@ def riepiloghi_upld(request,pk):
 	context['title'] = title
     return render(request, 'formulari/materiali_edit.html', context )
 
-
+    
 def comp_r_to_f(cod):
 	if (cod == 'RP')or (cod == 'ER'):
 	 res = cod
