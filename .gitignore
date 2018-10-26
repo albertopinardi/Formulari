@@ -5,6 +5,7 @@ models.pyc
 urls.pyc
 utils.pyc
 views.pyc
+migrations/*
 migrations/0001_initial.pyc
 migrations/0002_auto_20170727_1815.pyc
 migrations/0003_auto_20170727_1824.pyc
