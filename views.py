@@ -20,7 +20,7 @@ from django.views.generic import View
 from formulari.utils import render_to_pdf
 
 #Prove email
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 
 
 #Prove
@@ -34,6 +34,13 @@ def sendsome(request):
     )
     return redirect('riepiloghi_list')
 
+def send_riepilogo(request,pk,dest):
+        eml = EmailMessage(
+                'Oggetto',
+                'In allegato il riepilogo',
+                'alberto@fastmail.it',
+                dest)
+        eml.attach_file(Riepiloghi.object.get(pk=pk).value(doc))
 
 def get_data(request,*args,**kwargs):
 #    asd = Prezzi.objects.values_list('data')
@@ -302,6 +309,12 @@ def ripartizioni_riepilogo(request, pk):
         formulari = Formulari.objects.filter(ripa=pk)
         return render(request, 'formulari/formulari_list.html', {'formularis':formulari})
 
+def ripartizioni_bilancio(request, pk):
+        data=dict()        
+        for i in Materiali.objects.all():
+                incassi = Formulari.objects.filter(ripa__pk=pk).filter(mat__pk=i.pk).aggregate(Sum('imp'))
+                data[str(i)] = incassi['imp__sum']
+        return JsonResponse(data)
 # Prezzi
 
 @login_required(login_url='/login/')
