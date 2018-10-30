@@ -37,18 +37,16 @@ urlpatterns = [
         url(r'^materiali/$', views.materiali_list, name='materiali_list'),
         url(r'^materiali/new/$', views.materiali_new, name='materiali_new'),
         url(r'^materiali/mod/$', views.mat_mod, name='mat_mod'),
-        url(r'^materiali/call/$', TemplateView.as_view(template_name='formulari/modal.html'), name='call'),
-#       url(r'^pdf/$', views.pdf, name='pdf'),
         url(r'^riepiloghi/$', views.riepiloghi_list, name='riepiloghi_list'),
 	url(r'^riepiloghi/commercianti/(?P<pk>[0-9]+)/$', views.riepiloghi_f_anagrafica, name='riepiloghi_f_anagrafica'),
         url(r'^riepiloghi/(?P<pk>[0-9]+)/$', views.riepiloghi_details, name='riepiloghi_details'),
         url(r'^riepiloghi/(?P<pk>[0-9]+)/delete/$', views.riepiloghi_delete, name='riepiloghi_delete'),
         url(r'^riepiloghi/(?P<pk>[0-9]+)/change/(?P<cod>[-\w]+)/$', views.riepiloghi_change, name='riepiloghi_change'),
         url(r'^riepiloghi/(?P<pk>[0-9]+)/upld/$', views.riepiloghi_upld, name='riepiloghi_upld'),
-#prove
+#api
         url(r'^api/gruppi/(?P<pk>[0-9]+)/bilancio/$', views.ripartizioni_bilancio, name='ripartizioni_bilancio'),
-        url(r'^api/data/$', views.get_data, name='get_data'),
-        url(r'^charts/$', views.HomeView.as_view() , name='home'),
+#prove
         url(r'^sendmail/$', views.sendsome, name='sendmail')
+        url(r'^materiali/call/$', TemplateView.as_view(template_name='formulari/modal.html'), name='call'),
 
 ]

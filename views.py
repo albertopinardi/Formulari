@@ -14,7 +14,6 @@ from random import randint
 from django.views.generic import TemplateView
 
 #prove grafici
-from chartjs.views.lines import BaseLineChartView
 from django.http import JsonResponse
 from django.views.generic import View
 from formulari.utils import render_to_pdf
@@ -40,25 +39,7 @@ def send_riepilogo(request,pk,dest):
                 'In allegato il riepilogo',
                 'alberto@fastmail.it',
                 dest)
-        eml.attach_file(Riepiloghi.object.get(pk=pk).value(doc))
-
-def get_data(request,*args,**kwargs):
-#    asd = Prezzi.objects.values_list('data')
-#    asd1 = Prezzi.objects.values_list('alla_ton')
-#    data = {
-#        "labels":asd,
-#        "default":asd1,
-#    }
-    data = {
-        "labels":["pignoni", "budelli","pignoni", "budelli"],
-        "default":[20, 17, 19, 20],
-    }
-    return JsonResponse(data)
-
-class HomeView(View):
-    def get(self, request, *args, **kwargs):
-        return render(request, 'formulari/grafici.html')
-
+        eml.attach_file(Riepiloghi.object.get(pk=pk).values('doc'))
 
 # Create your views here.
 
