@@ -314,7 +314,11 @@ def ripartizioni_bilancio(request, pk):
         for i in Materiali.objects.all():
                 incassi = Formulari.objects.filter(ripa__pk=pk).filter(mat__pk=i.pk).aggregate(Sum('imp'))
                 data[str(i)] = incassi['imp__sum']
-        return JsonResponse(data)
+        result = {
+                "labels":data.keys(),
+                "default":data.values(),                
+        }
+        return JsonResponse(result)
 # Prezzi
 
 @login_required(login_url='/login/')
