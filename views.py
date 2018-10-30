@@ -313,7 +313,8 @@ def ripartizioni_bilancio(request, pk):
         data=dict()        
         for i in Materiali.objects.all():
                 incassi = Formulari.objects.filter(ripa__pk=pk).filter(mat__pk=i.pk).aggregate(Sum('imp'))
-                data[str(i)] = incassi['imp__sum']
+                if incassi['imp__sum'] is not None :
+                        data[str(i)] = incassi['imp__sum']
         result = {
                 "labels":data.keys(),
                 "default":data.values(),                
