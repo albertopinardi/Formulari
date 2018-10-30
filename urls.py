@@ -46,7 +46,7 @@ urlpatterns = [
 #api
         url(r'^api/gruppi/(?P<pk>[0-9]+)/bilancio/$', views.ripartizioni_bilancio, name='ripartizioni_bilancio'),
 #prove
-        url(r'^sendmail/$', views.sendsome, name='sendmail')
-        url(r'^materiali/call/$', TemplateView.as_view(template_name='formulari/modal.html'), name='call'),
+        url(r'^sendmail/$', views.sendsome, name='sendmail'),
+        url(r'^materiali/call/$', TemplateView.as_view(template_name='formulari/modal.html'), name='call')
 
 ]
