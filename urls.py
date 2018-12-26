@@ -45,8 +45,10 @@ urlpatterns = [
         url(r'^riepiloghi/(?P<pk>[0-9]+)/upld/$', views.riepiloghi_upld, name='riepiloghi_upld'),
 #api
         url(r'^api/gruppi/(?P<pk>[0-9]+)/bilancio/$', views.ripartizioni_bilancio, name='ripartizioni_bilancio'),
+        url(r'^api/doc_duplicati/$',views.duplicati, name='doc_duplicati'),
 #prove
         url(r'^sendmail/$', views.sendsome, name='sendmail'),
+        url(r'^riepiloghi/(?P<pk>[0-9]+)/mail/$', views.send_riepilogo, name='send_riepilogo'),
         url(r'^materiali/call/$', TemplateView.as_view(template_name='formulari/modal.html'), name='call')
 
 ]

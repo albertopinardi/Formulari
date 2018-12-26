@@ -23,6 +23,10 @@ from django.core.mail import send_mail, EmailMessage
 
 
 #Prove
+def duplicati(request):
+    result = Formulari.objects.values('cod').annotate(Count('id')).order_by().filter(id__count__gt=1)
+    return JsonResponse(result)
+
 def sendsome(request):
     send_mail(
     'Subject here',
@@ -33,13 +37,20 @@ def sendsome(request):
     )
     return redirect('riepiloghi_list')
 
-def send_riepilogo(request,pk,dest):
+def send_riepilogo(request,pk):
+        
+        dest = Anagrafica.objects.get(pk=pk)
+        attachment = Riepiloghi.objects.get(pk=pk)
         eml = EmailMessage(
                 'Oggetto',
                 'In allegato il riepilogo',
                 'alberto@fastmail.it',
-                dest)
-        eml.attach_file(Riepiloghi.object.get(pk=pk).values('doc'))
+                [dest.mail],
+                )   
+        attachment = './' + str(attachment.doc)
+        eml.attach_file(attachment)
+        eml.send(fail_silently=False)
+        return redirect('formulari_list')
 
 # Create your views here.
 
@@ -67,7 +78,7 @@ def formulari_new(request):
         form = FormulariForm()
     return render(request, 'formulari/formulari_edit.html', {'form': form})
 
-
+#Inseriemnto di Formulari Simili o consecutivi
 @login_required(login_url='/login/')
 def formulari_like(request, rif):
     data_obj = Formulari.objects.filter(pk=rif)

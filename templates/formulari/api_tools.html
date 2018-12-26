@@ -1,0 +1,23 @@
+{% extends 'formulari/base.html' %}
+{% block extrahead %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js"></script>
+<script>
+var endpoint = '{% url "ripartizioni_bilancio" pk=record.pk %}'
+var defaultData = []
+var labels = [];
+$.ajax({
+    method: "GET",
+    url: endpoint,
+    success: function(data){
+    },
+    error: function(error_data){
+        console.log("error")
+        console.log(error_data)
+    }
+})
+</script>
+{% endblock %}
+{% block content %}
+    <h1>API Tools</h1>
+    <a class="btn btn-default" url-endpoint='{% url "doc_duplicati" %}'>
+{% endblock %}
