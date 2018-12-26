@@ -32,3 +32,4 @@ migrations/0023_auto_20171205_1007.pyc
 migrations/0024_anagrafica_addr.pyc
 migrations/0025_auto_20180105_1513.pyc
 migrations/__init__.pyc
+.vscode/launch.json
