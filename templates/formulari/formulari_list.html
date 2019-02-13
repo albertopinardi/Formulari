@@ -30,7 +30,7 @@
 	<tr>
 	{% endif %}
 	 <td>{{ formulari.comm }}</td>
-	 <td><a href="{% url 'formulari_detail' pk=formulari.pk %}">{{ formulari.cod }}</a></td>
+	 <td><a href="{% url 'formulari_detail' pk=formulari.pk %}">{{ formulari }}</a></td>
          <td class="hidden-xs hidden-sm">{{ formulari.mat }}</td>
 	 <td>{{ formulari.data|date:'d/N/y' }}</td>
          <td class="hidden-xs hidden-sm">{{ formulari.prezzo }}</td>
