@@ -71,9 +71,8 @@ class Formulari(models.Model):
 	stato = models.CharField(max_length=2, choices=SCELTA_STATO, default=APERTO,)
 	riepi = models.ForeignKey('formulari.Riepiloghi', models.SET_NULL, blank=True, null=True,)
 
-
         def __str__(self):
-                return self.cod
+                return self.cod.replace(" ","")
 
 	def importo(self):
 		return "%s \u20ac" %(self.prez * self.qu)
