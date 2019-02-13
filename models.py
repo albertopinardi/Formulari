@@ -72,7 +72,10 @@ class Formulari(models.Model):
 	riepi = models.ForeignKey('formulari.Riepiloghi', models.SET_NULL, blank=True, null=True,)
 
         def __str__(self):
-                return self.cod.replace(" ","")
+                a = self.cod
+                str(a)
+                a.replace(" ","")
+                return a
 
 	def importo(self):
 		return "%s \u20ac" %(self.prez * self.qu)
