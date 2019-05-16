@@ -1,5 +1,32 @@
 {% extends 'formulari/base.html' %}
-
+{% block extrahead %}
+<script>
+var endpoint = '{% url "search_cod" %}'
+$( function() {
+    $( "#target" ).autocomplete({
+        source: function( request, response ) {
+            $.ajax( {
+                method: "GET",    
+                url: endpoint,
+                dataType: "json",
+                data: {
+                    string: request.term
+                },
+                success: function( data ) {
+                    console.log(data)
+                    response( data );
+                    },
+                error: function(error_data){
+                    console.log("error")
+                    console.log(error_data)
+                }
+            } );
+        },
+    minLength: 2,
+    });
+});
+</script>
+{% endblock %}
 {% block content %}
     <h1>Nuovo Formulario</h1>
     <form method="POST" >{% csrf_token %}

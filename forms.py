@@ -12,6 +12,7 @@ class FormulariForm(forms.ModelForm):
         fields = ('comm', 'cod', 'mat', 'data', 'prod', 'qu', 'um', 'prez', 'ripa', 'stato')
         widgets = {
             'data': forms.DateInput(attrs={'id':'datepicker'}),
+	    'cod': forms.TextInput(attrs={'id':'target'})
         }
 	labels = {
 		'comm': _('Commerciante'),

@@ -46,6 +46,7 @@ urlpatterns = [
 #api
         url(r'^api/gruppi/(?P<pk>[0-9]+)/bilancio/$', views.ripartizioni_bilancio, name='ripartizioni_bilancio'),
         url(r'^api/doc_duplicati/$',views.duplicati, name='doc_duplicati'),
+        url(r'^api/search_cod/$',views.search_cod, name='search_cod'),
 #prove
         url(r'^sendmail/$', views.sendsome, name='sendmail'),
         url(r'^riepiloghi/(?P<pk>[0-9]+)/mail/$', views.send_riepilogo, name='send_riepilogo'),
