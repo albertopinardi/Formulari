@@ -73,14 +73,7 @@ class Formulari(models.Model):
 
 
         def __str__(self):
-<<<<<<< HEAD
-                a = self.cod
-                str(a)
-                a.replace(" ","")
-                return a
-=======
                 return self.cod
->>>>>>> parent of 16abeb2... Hack for formulari.cod display purpose
 
 	def importo(self):
 		return "%s \u20ac" %(self.prez * self.qu)
