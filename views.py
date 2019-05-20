@@ -36,9 +36,12 @@ def search_cod(request):
 
 
 def duplicati(request):
-    result = Formulari.objects.values('cod').annotate(
-        Count('id')).order_by().filter(id__count__gt=1)
-    return JsonResponse(result)
+    res = []
+    result = Formulari.objects.values_list('cod').annotate(Count('id')).order_by().filter(id__count__gt=1)
+    for val in result:
+        for i in val:
+            res.append(i)
+    return JsonResponse(res, safe=False)
 
 
 def sendsome(request):
@@ -349,8 +352,7 @@ def ripartizioni_riepilogo(request, pk):
 def ripartizioni_bilancio(request, pk):
     data = dict()
     for i in Materiali.objects.all():
-        incassi = Formulari.objects.filter(ripa__pk=pk).filter(
-            mat__pk=i.pk).aggregate(Sum('imp'))
+        incassi = Formulari.objects.filter(ripa__pk=pk).filter(mat__pk=i.pk).aggregate(Sum('imp'))
         if incassi['imp__sum'] is not None:
             data[str(i)] = incassi['imp__sum']
     result = {
@@ -367,17 +369,15 @@ def prezzi_list(request):
     return render(request, 'formulari/prezzi_list.html', {'arrays': array})
 
 
-@login_required(login_url='/login/')
-def prezzi_chart(request):
-    prezzi_data = []
-    prezzi_chart = []
-    prezzi_data = Prezzi.objects.order_by(
-        '-data').values_list('data', flat=True)
-    prezzi_chart = Prezzi.objects.order_by(
-        '-data').values_list('valore', flat=True)
-    context = {'prezzi_data': list(prezzi_data)}
-    context['prezzi_chart'] = list(prezzi_chart)
-    return render(request, 'formulari/prezzi_chart.html', context)
+# @login_required(login_url='/login/')
+# def prezzi_chart(request):
+#     prezzi_data = []
+#     prezzi_chart = []
+#     prezzi_data = Prezzi.objects.order_by('-data').values_list('data', flat=True)
+#     prezzi_chart = Prezzi.objects.order_by('-data').values_list('valore', flat=True)
+#     context = {'prezzi_data': list(prezzi_data)}
+#     context['prezzi_chart'] = list(prezzi_chart)
+#     return render(request, 'formulari/prezzi_chart.html', context)
 
 
 @login_required(login_url='/login/')
