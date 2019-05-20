@@ -1,4 +1,4 @@
-    {% load i18n widget_tweaks %}
+    {% load i18n %}
     <div class="modal-dialog modal-lg" role="document">
         <form action="{% url 'mat_mod' %}" method="post" id="mat_mod" class="form">{% csrf_token %}
             <div class="modal-content">
@@ -16,7 +16,7 @@
                             <label for="exampleInputEmail1">
                             {{ field.label_tag }}
                         </label>
-                        {{ field|attr:"class:form-control" }}
+                        {{ field }}
                     </fieldset>
                     {% endfor %}
                 </div>
