@@ -1,21 +1,24 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Formulari, Anagrafica, Ripartizioni, Prezzi, Materiali, Riepiloghi
-from django.utils import timezone
+from .models import Formulari, Anagrafica
+from .models import Ripartizioni, Prezzi, Materiali, Riepiloghi
+# from django.utils import timezone
 import datetime
-from django.template import Context
+# from django.template import Context
 from django.http import HttpResponse
-from django.db.models import Avg, Max, Min, Sum, F, Q, Count, OuterRef, Subquery
+# from django.db.models import Avg, Max, Min, F
+from django.db.models import Sum, Q, Count, OuterRef, Subquery
 from django.db import models
-from itertools import chain
-from django.views.generic.edit import CreateView
+# from itertools import chain
+# from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
-from .forms import FormulariForm, AnagraficaForm, PrezziForm, RipartizioniForm, MaterialiForm, RiepiloghiForm
-from random import randint
-from django.views.generic import TemplateView
+from .forms import FormulariForm, AnagraficaForm, PrezziForm
+from .forms import RipartizioniForm, MaterialiForm, RiepiloghiForm
+# from random import randint
+# from django.views.generic import TemplateView
 
 # prove grafici
 from django.http import JsonResponse
-from django.views.generic import View
+# from django.views.generic import View
 from formulari.utils import render_to_pdf
 
 # Prove email
@@ -37,7 +40,8 @@ def search_cod(request):
 
 def duplicati(request):
     res = []
-    result = Formulari.objects.values_list('cod').annotate(Count('id')).order_by().filter(id__count__gt=1)
+    result = Formulari.objects.values_list('cod').annotate(
+        Count('id')).order_by().filter(id__count__gt=1)
     for val in result:
         for i in val:
             res.append(i)
@@ -304,8 +308,8 @@ def ripartizioni_list(request):
 @login_required(login_url='/login/')
 def ripartizioni_detail(request, pk):
     record = get_object_or_404(Ripartizioni, pk=pk)
-#	if record:
-#	  num_doc = Formulari.objects.filter(ripa=pk)
+# if record:
+# num_doc = Formulari.objects.filter(ripa=pk)
     return render(request, 'formulari/ripartizioni_details.html', {'record': record})
 
 
@@ -352,7 +356,8 @@ def ripartizioni_riepilogo(request, pk):
 def ripartizioni_bilancio(request, pk):
     data = dict()
     for i in Materiali.objects.all():
-        incassi = Formulari.objects.filter(ripa__pk=pk).filter(mat__pk=i.pk).aggregate(Sum('imp'))
+        incassi = Formulari.objects.filter(ripa__pk=pk).filter(
+            mat__pk=i.pk).aggregate(Sum('imp'))
         if incassi['imp__sum'] is not None:
             data[str(i)] = incassi['imp__sum']
     result = {
