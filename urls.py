@@ -65,6 +65,8 @@ urlpatterns = [
         views.riepiloghi_change, name='riepiloghi_change'),
     url(r'^riepiloghi/(?P<pk>[0-9]+)/upld/$',
         views.riepiloghi_upld, name='riepiloghi_upld'),
+    url(r'^riepiloghi/(?P<pk>[0-9]+)/preview/$',
+        views.riepiloghi_preview, name='riepiloghi_preview'),
     # api
     url(r'^api/gruppi/(?P<pk>[0-9]+)/bilancio/$',
         views.ripartizioni_bilancio, name='ripartizioni_bilancio'),

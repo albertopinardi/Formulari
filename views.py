@@ -473,7 +473,9 @@ def riepiloghi_f_anagrafica(request, pk):
 @login_required(login_url='/login/')
 def riepiloghi_details(request, pk):
     formulari = Formulari.objects.filter(riepi=pk).order_by('-data')
-    return render(request, 'formulari/formulari_list.html', {'formularis': formulari})
+    context = {'formularis': formulari}
+    context['riepilogo'] = pk
+    return render(request, 'formulari/riepiloghi_detail_list.html', context)
 
 
 @login_required(login_url='/login/')
@@ -526,6 +528,30 @@ def riepiloghi_upld(request, pk):
         context = {'form': form}
         context['title'] = title
     return render(request, 'formulari/materiali_edit.html', context)
+
+
+@login_required(login_url='/login/')
+def riepiloghi_preview(request, pk):
+    fqs = Formulari.objects.filter(riepi=pk).order_by('-data')
+    gks = []
+    fps = []
+    gsa = []
+    for f1 in fqs:
+        fps.append(f1.pk)
+        if f1 and f1.ripa not in gks:
+            gks.append(f1.ripa)
+    for g1 in gks:
+        gs = Ripartizioni.objects.filter(pk=g1.pk).filter(formulari__pk__in=fps).annotate(
+            totale=Sum('formulari__imp')).values('nome', 'totale', 'pk')
+        appo = dict(gs[0])
+        gsa.append(appo)
+    fa = Riepiloghi.objects.filter(id=pk).values('comm')
+    context = {'fqss': fqs}
+    context['gsas'] = gsa
+    context['comm'] = Anagrafica.objects.get(id=fa)
+    context['data'] = datetime.date.today()
+    pdf = render_to_pdf('pdf/preview_rpdf.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
 
 
 def comp_r_to_f(cod):
