@@ -54,6 +54,7 @@ urlpatterns = [
     url(r'^materiali/$', views.materiali_list, name='materiali_list'),
     url(r'^materiali/new/$', views.materiali_new, name='materiali_new'),
     url(r'^materiali/mod/$', views.mat_mod, name='mat_mod'),
+    url(r'^materiali/(?P<pk>[0-9]+)/doc_list/$', views.materiali_group_by, name='materiali_group_by'),
     url(r'^riepiloghi/$', views.riepiloghi_list, name='riepiloghi_list'),
     url(r'^riepiloghi/commercianti/(?P<pk>[0-9]+)/$',
         views.riepiloghi_f_anagrafica, name='riepiloghi_f_anagrafica'),

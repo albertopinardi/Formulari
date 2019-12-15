@@ -453,6 +453,13 @@ def mat_mod(request):
     else:
         form = MaterialiForm()
     return render(request, 'formulari/materiali_create_form.html', {'form': form})
+
+
+def materiali_group_by(request, pk):
+    array = Formulari.objects.filter(mat=pk).order_by('-data')
+    return render(request, 'formulari/formulari_list.html', {'formularis': array})
+
+
 # Riepiloghi
 
 
