@@ -1,24 +1,25 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Formulari, Anagrafica
 from .models import Ripartizioni, Prezzi, Materiali, Riepiloghi
-# from django.utils import timezone
 import datetime
-# from django.template import Context
 from django.http import HttpResponse
-# from django.db.models import Avg, Max, Min, F
 from django.db.models import Sum, Q, Count, OuterRef, Subquery
 from django.db import models
-# from itertools import chain
-# from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
 from .forms import FormulariForm, AnagraficaForm, PrezziForm
 from .forms import RipartizioniForm, MaterialiForm, RiepiloghiForm
 # from random import randint
 # from django.views.generic import TemplateView
+# from django.utils import timezone
+# from django.template import Context
+# from itertools import chain
+# from django.views.generic.edit import CreateView
+# from django.db.models import Avg, Max, Min, F
+# from django.views.generic import View
 
 # prove grafici
 from django.http import JsonResponse
-# from django.views.generic import View
+
 from formulari.utils import render_to_pdf
 
 # Prove email
