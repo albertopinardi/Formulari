@@ -16,6 +16,32 @@
 		$( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
   	} );
     </script>
+  <script>
+    var endpoint = '{% url "search_cod" %}'
+    $( function() {
+        $( "#searchbar" ).autocomplete({
+            source: function( request, response ) {
+                $.ajax( {
+                    method: "GET",    
+                    url: endpoint,
+                    dataType: "json",
+                    data: {
+                        string: request.term
+                    },
+                    success: function( data ) {
+                        console.log(data)
+                        response( data );
+                        },
+                    error: function(error_data){
+                        console.log("error")
+                        console.log(error_data)
+                    }
+                } );
+            },
+        minLength: 2,
+        });
+    });
+  </script>
   {% block extrahead %}
   {% endblock %}
 </head>
@@ -74,6 +100,11 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
+        <li>
+        <form class="form-inline md-form form-sm mt-0" action="{% url 'search_formulari' %}" method="GET">
+          <input class="form-control form-control-sm ml-3 w-65" type="text" placeholder="Search" aria-label="Search" id="searchbar" name="searchbar">
+        </form>
+        </li>
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ user }} </a></li>
         <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
 	{% else %}

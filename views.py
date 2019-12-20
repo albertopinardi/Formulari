@@ -28,6 +28,12 @@ from django.core.mail import send_mail, EmailMessage
 
 # Prove
 
+def search_formulari(request):
+    string = request.GET.get('searchbar')
+    form = Formulari.objects.get(cod=string)
+    return render(request, 'formulari/formulari_details.html', {'form': form})
+
+
 def search_cod(request):
     res = []
     string = request.GET['string']
