@@ -42,9 +42,11 @@
 	{% endfor %}
 	</tbody>
 	</table>
-	 <div class="btn-group">
+	 <div>
           <a class="btn btn-primary" href="{% url 'riepiloghi_preview' pk=riepilogo %}" target="_blank">
                 <span class="glyphicon glyphicon-info-sign"></span> Genera Anteprima </a>
+          <a href="{% url 'riepiloghi_rpdf' pk=riepilogo %}" class="btn btn-default" target="_blank">
+                <span class="glyphicon glyphicon-print"></span> PDF </a>
 	 </div>
 	</div>
 {% endblock content %}

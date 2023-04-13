@@ -60,7 +60,7 @@
          <td>{{ array.stato }}</td>
         {% endif %}
          <td class="hidden-xs hidden-sm"><a href="{% url 'riepiloghi_upld' pk=array.pk %}" class="btn btn-info" role="button">Carica Doc</a></td>
-         <td class="hidden-xs hidden-sm"><a href="{% url 'sendmail' %}" class="btn btn-danger" role="button">Sendmail</a></td>
+         <td class="hidden-xs hidden-sm"><a hidden="true" href="{% url 'sendmail' %}" class="btn btn-danger" role="button">Sendmail</a></td>
          <td class="hidden-xs hidden-sm">{{ array.autore }}</td>
 	</tr>
 	{% endfor %}
