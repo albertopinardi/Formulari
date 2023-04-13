@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^riepiloghi/(?P<pk>[0-9]+)/change/(?P<cod>[-\w]+)/$', views.riepiloghi_change, name='riepiloghi_change'),
     url(r'^riepiloghi/(?P<pk>[0-9]+)/upld/$', views.riepiloghi_upld, name='riepiloghi_upld'),
     url(r'^riepiloghi/(?P<pk>[0-9]+)/preview/$', views.riepiloghi_preview, name='riepiloghi_preview'),
+    url(r'^riepiloghi/(?P<pk>[0-9]+)/rpdf/$', views.riepiloghi_rpdf, name='riepiloghi_rpdf'),
     # api
     url(r'^api/gruppi/(?P<pk>[0-9]+)/bilancio/$', views.ripartizioni_bilancio, name='ripartizioni_bilancio'),
     url(r'^api/doc_duplicati/$', views.duplicati, name='doc_duplicati'),
