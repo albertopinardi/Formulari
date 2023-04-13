@@ -372,6 +372,8 @@ def ripartizioni_bilancio(request, pk):
         "default": data.values(),
     }
     return JsonResponse(result)
+
+
 # Prezzi
 
 
@@ -567,6 +569,29 @@ def riepiloghi_preview(request, pk):
     pdf = render_to_pdf('pdf/preview_rpdf.html', context)
     return HttpResponse(pdf, content_type='application/pdf')
 
+
+@login_required(login_url='/login/')
+def riepiloghi_rpdf(request, pk):
+    fqs = Formulari.objects.filter(riepi=pk).order_by('-data')
+    gks = []
+    fps = []
+    gsa = []
+    for f1 in fqs:
+        fps.append(f1.pk)
+        if f1 and f1.ripa not in gks:
+            gks.append(f1.ripa)
+    for g1 in gks:
+        gs = Ripartizioni.objects.filter(pk=g1.pk).filter(formulari__pk__in=fps).annotate(
+            totale=Sum('formulari__imp')).values('nome', 'totale', 'pk')
+        appo = dict(gs[0])
+        gsa.append(appo)
+    fa = Riepiloghi.objects.filter(id=pk).values('comm')
+    context = {'fqss': fqs}
+    context['gsas'] = gsa
+    context['comm'] = Anagrafica.objects.get(id=fa)
+    context['data'] = datetime.date.today()
+    pdf = render_to_pdf('pdf/formulari_rpdf.html', context)
+    return HttpResponse(pdf, content_type='application/pdf')
 
 def comp_r_to_f(cod):
     if (cod == 'RP')or (cod == 'ER'):
